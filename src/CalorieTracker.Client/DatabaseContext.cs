@@ -19,6 +19,7 @@ public class DatabaseContext : DbContext
     public DbSet<FitnessGoal> FitnessGoals{ get; set; }
 
     public DbSet<ActivityLevel> ActivityLevels{ get; set; }
+    public DbSet<Role> Roles{ get; set; }
 
 
 

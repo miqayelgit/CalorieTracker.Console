@@ -1,6 +1,4 @@
-﻿using CalorieTracker.Client.Enums;
-
-namespace CalorieTracker.Client.Entities;
+﻿namespace CalorieTracker.Client.Entities;
 
 public class UserData
 {

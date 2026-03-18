@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using CalorieTracker.Client.Entities;
+﻿using CalorieTracker.Client.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CalorieTracker.Client.Configurations;
 
