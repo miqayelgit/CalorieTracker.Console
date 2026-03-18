@@ -12,11 +12,11 @@ namespace CalorieTracker.Client.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.DailyUsedLimit)
+            builder.Property(x => x.UsedLimit)
                 .HasColumnType("SMALLINT")
                 .IsRequired();
 
-            builder.Property(x => x.DailyRemainingLimit)
+            builder.Property(x => x.RemainingLimit)
                 .HasColumnType("SMALLINT")
                 .IsRequired();
         }
