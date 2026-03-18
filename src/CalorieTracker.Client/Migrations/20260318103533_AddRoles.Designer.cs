@@ -4,6 +4,7 @@ using CalorieTracker.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Client.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260318103533_AddRoles")]
+    partial class AddRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,46 +42,6 @@ namespace CalorieTracker.Client.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityLevels", (string)null);
-                });
-
-            modelBuilder.Entity("CalorieTracker.Client.Entities.DailyCalorieLimit", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<short>("Dailimit")
-                        .HasColumnType("smallint");
-
-                    b.Property<short>("DailyRemainingLimit")
-                        .HasColumnType("SMALLINT");
-
-                    b.Property<short>("DailyUsedLimit")
-                        .HasColumnType("SMALLINT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DailyCalorieLimits", (string)null);
-                });
-
-            modelBuilder.Entity("CalorieTracker.Client.Entities.DailyNutrientsIntakeAmount", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<short>("Carbs")
-                        .HasColumnType("SMALLINT");
-
-                    b.Property<short>("Fat")
-                        .HasColumnType("SMALLINT");
-
-                    b.Property<short>("Protein")
-                        .HasColumnType("SMALLINT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DailyNutrientsIntakeAmounts", (string)null);
                 });
 
             modelBuilder.Entity("CalorieTracker.Client.Entities.FitnessGoal", b =>
@@ -140,7 +103,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 18, 17, 40, 49, 604, DateTimeKind.Utc).AddTicks(5454));
+                        .HasDefaultValue(new DateTime(2026, 3, 18, 10, 35, 32, 966, DateTimeKind.Utc).AddTicks(4774));
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -161,7 +124,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 18, 17, 40, 49, 604, DateTimeKind.Utc).AddTicks(7348));
+                        .HasDefaultValue(new DateTime(2026, 3, 18, 10, 35, 32, 966, DateTimeKind.Utc).AddTicks(6873));
 
                     b.Property<string>("Email")
                         .IsRequired()

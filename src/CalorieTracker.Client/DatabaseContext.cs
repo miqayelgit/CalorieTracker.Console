@@ -19,7 +19,10 @@ public class DatabaseContext : DbContext
     public DbSet<FitnessGoal> FitnessGoals{ get; set; }
 
     public DbSet<ActivityLevel> ActivityLevels{ get; set; }
-    public DbSet<Role> Roles{ get; set; }
+    public DbSet<Role> Roles { get; set; }
+    public DbSet<DailyCalorieLimit> DailyCalorieLimits { get; set; }
+    public DbSet<DailyNutrientsIntakeAmount> DailyNutrientsIntakeAmounts { get; set; }
+
 
 
 
