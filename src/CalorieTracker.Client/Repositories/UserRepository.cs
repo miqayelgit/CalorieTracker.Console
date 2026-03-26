@@ -17,17 +17,16 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
 
     public void RegisterUser(User user)
     {
-        Add(user);
-        Commit();
+         Add(user);
     }
-    public IEnumerable<User> GetAllUsers()
+    public async Task<IEnumerable<User>> GetAllUsers()
     {
-        return GetAll();
+        return await GetAll();
     }
 
-    public User GetUserByUsername(string username)
+    public async Task<User> GetUserByUsername(string username)
     {
-        return Get(x => x.UserName.Equals(username));
+        return await Get(x => x.UserName == username);
     }
 
 }

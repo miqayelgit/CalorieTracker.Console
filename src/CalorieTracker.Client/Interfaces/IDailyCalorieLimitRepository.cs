@@ -4,9 +4,9 @@ using CalorieTracker.Client.Entities;
 
 namespace CalorieTracker.Client.Interfaces;
 
-internal interface IDailyCalorieLimitRepository
+public interface IDailyCalorieLimitRepository: IRepositoryBase <DailyCalorieLimit>
 {
     public void AddLimits(DailyCalorieLimit limit);
 
-    public DailyCalorieLimit GetDailyCalorieLimitByUserId(Guid userId);
+    public Task<DailyCalorieLimit> GetDailyCalorieLimitByUserId(Guid userId);
 }

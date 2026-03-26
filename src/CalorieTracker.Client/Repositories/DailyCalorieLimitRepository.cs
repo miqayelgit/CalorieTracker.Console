@@ -16,11 +16,10 @@ public class DailyCalorieLimitRepository : RepositoryBase<DailyCalorieLimit>, ID
     public void AddLimits(DailyCalorieLimit limit )
     {
         Add(limit);
-        Commit();
     }
 
-    public DailyCalorieLimit GetDailyCalorieLimitByUserId(Guid userId)
+    public async Task<DailyCalorieLimit> GetDailyCalorieLimitByUserId(Guid userId)
     {
-        return Get(x => x.Id.Equals(userId));
+        return await Get(x => x.Id == userId);
     }
 }

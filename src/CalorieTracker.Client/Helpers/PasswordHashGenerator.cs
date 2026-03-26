@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CalorieTracker.Client.Helper;
 
-public  class PasswordHashGenerator
+public static class PasswordHashGenerator
 {
-    static void CreateHash(string password, out byte[] hash, out byte[] salt)
+    public static void CreateHash(string password, out byte[] hash, out byte[] salt)
     {
         salt = RandomNumberGenerator.GetBytes(32);
 
@@ -15,7 +15,7 @@ public  class PasswordHashGenerator
         hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
     }
 
-    static bool VerifyKey(string password, byte[] storedHash, byte[] storedSalt)
+    public static bool VerifyKey(string password, byte[] storedHash, byte[] storedSalt)
     {
         using var hmac = new HMACSHA256(storedSalt);
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
