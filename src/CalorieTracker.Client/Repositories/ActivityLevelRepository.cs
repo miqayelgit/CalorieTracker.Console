@@ -6,15 +6,11 @@ using CalorieTracker.Client.Repositories.@base;
 
 namespace CalorieTracker.Client.Repositories;
 
-public class ActivityLevelRepository : RepositoryBase<ActivityLevel>
+public class ActivityLevelRepository : RepositoryBase<ActivityLevel>, IActivityLevelRepository
 {
 
     public ActivityLevelRepository(DatabaseContext context) : base(context)
     {
     }
-  
-    public async Task<IEnumerable<ActivityLevel>> GetActivityLevels()
-    {
-        return await GetAll();
-    }
+ 
 }

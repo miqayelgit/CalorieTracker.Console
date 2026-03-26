@@ -2,48 +2,30 @@
 
 using CalorieTracker.Client;
 using CalorieTracker.Client.Entities;
-using CalorieTracker.Client.Helper;
-using CalorieTracker.Client.Repositories;
-using CalorieTracker.Client.UnitOfWork;
+using CalorieTracker.Client.Services;
+using CalorieTracker.Client.UOW;
 
-PasswordHashGenerator.CreateHash("Password1", out byte[] hash, out byte[] salt);
+
+int random = Random.Shared.Next(1, 500);
+string password = "Password123";
 
 User user = new User
 {
-    FirstName = "Tsest",
-    LastName = "Tesstyan",
-    Email = "Tesst@Gmail3.com",
-    UserName = "JustCreated",
-    PasswordHash = hash,
-    PasswordSalt = salt,
+    FirstName = $"User{random}",
+    LastName = $"Tesstyan{random}",
+    Email = $"Test{random}@Gmail.com",
+    UserName = $"JustCreated{random}",
     CreatedAt = DateTime.Now,
 };
 
 DatabaseContext context = new DatabaseFactory().CreateDbContext([]);
-UserRepository userRepository = new UserRepository(context);
-DailyCalorieLimitRepository dailyCalorieLimitRepository = new DailyCalorieLimitRepository(context);
+UnitOfWork unitOfWork = new UnitOfWork(context);
 
+UserService userService = new UserService(unitOfWork);
 
-User myUser = await userRepository.GetUserByUsername("TesstUsername");
+userService.SignUp(user, password);
 
-DailyCalorieLimit limit = new()
-{
-    Id = myUser.Id,
-    DailyLimit = 10,
-    UsedLimit = 2,
-    RemainingLimit = 8
-};
+bool isLoginSuccessfull = await userService.SignIn("JustCreated12", "Password1");
+Console.WriteLine(isLoginSuccessfull);
 
-
-UnitOfWork unitOfWork = new UnitOfWork(context, userRepository, dailyCalorieLimitRepository);
-unitOfWork.UserRepository.RegisterUser(user);
-unitOfWork.DailyCalorieLimitRepository.AddLimits(limit);
-
-IEnumerable<DailyCalorieLimit> limits = await dailyCalorieLimitRepository.GetAll();
-
-await unitOfWork.Commit();
-
-limits = await dailyCalorieLimitRepository.GetAll();
-
-
-Console.WriteLine();
+await unitOfWork.CommitAsync(); 

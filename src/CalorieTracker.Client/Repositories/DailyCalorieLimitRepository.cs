@@ -12,14 +12,4 @@ public class DailyCalorieLimitRepository : RepositoryBase<DailyCalorieLimit>, ID
     public DailyCalorieLimitRepository(DatabaseContext context) : base(context)
     {   
     }
-
-    public void AddLimits(DailyCalorieLimit limit )
-    {
-        Add(limit);
-    }
-
-    public async Task<DailyCalorieLimit> GetDailyCalorieLimitByUserId(Guid userId)
-    {
-        return await Get(x => x.Id == userId);
-    }
 }

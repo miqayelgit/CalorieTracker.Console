@@ -14,7 +14,7 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
         _context = context;
     }
 
-    public void Add(TEntity entity)
+    public void Create(TEntity entity)
     {
         _context.Set<TEntity>().Add(entity);
     }
@@ -24,12 +24,12 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
         _context.Set<TEntity>().Remove(entity);
     }
 
-    public Task<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
+    public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return _context.Set<TEntity>().Where(predicate).FirstOrDefaultAsync()!;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAll()
+    public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         return await _context.Set<TEntity>().ToListAsync();
     }
