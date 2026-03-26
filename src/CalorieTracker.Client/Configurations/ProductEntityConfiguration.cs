@@ -12,6 +12,10 @@ namespace CalorieTracker.Client.Configurations
 
             builder.HasKey(x => x.Id);
 
+            builder.HasOne(x => x.User)
+               .WithMany()
+               .HasForeignKey(x => x.UserId);
+
             builder.Property(x => x.ProductName)
                 .HasMaxLength(100)
                 .IsRequired();

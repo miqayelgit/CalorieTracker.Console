@@ -8,4 +8,6 @@ public class UserData
     public byte Age { get; set; }
     public string ActivityLevel { get; set; } = null!;
     public string FitnessGoal { get; set; } = null!;
+
+    public User User { get; set; } = null!;
 }

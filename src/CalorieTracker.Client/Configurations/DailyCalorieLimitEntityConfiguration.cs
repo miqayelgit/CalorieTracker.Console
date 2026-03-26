@@ -10,7 +10,9 @@ namespace CalorieTracker.Client.Configurations
         {
             builder.ToTable("DailyCalorieLimits");
 
-            builder.HasKey(x => x.Id);
+            builder.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.Id);
 
             builder.Property(x => x.UsedLimit)
                 .HasColumnType("SMALLINT")
@@ -19,6 +21,10 @@ namespace CalorieTracker.Client.Configurations
             builder.Property(x => x.RemainingLimit)
                 .HasColumnType("SMALLINT")
                 .IsRequired();
+
+            builder.Property(x => x.CreatedDate)
+                .IsRequired()
+                .HasDefaultValue(DateTime.Now);
         }
     }
 }

@@ -10,7 +10,11 @@ namespace CalorieTracker.Client.Configurations
         {
             builder.ToTable("DailyNutrientsIntakeAmounts");
 
-            builder.HasKey(x => x.Id);  
+            builder.HasKey(x => x.Id);
+
+            builder.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.Id);
 
             builder.Property(x => x.Protein)
                 .HasColumnType("SMALLINT")

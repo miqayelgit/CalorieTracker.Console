@@ -4,6 +4,7 @@ using CalorieTracker.Client;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Client.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20260325120009_AddRef2")]
+    partial class AddRef2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,11 +48,6 @@ namespace CalorieTracker.Client.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 25, 16, 14, 12, 756, DateTimeKind.Local).AddTicks(8732));
 
                     b.Property<short>("DailyLimit")
                         .HasColumnType("smallint");
@@ -148,7 +146,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 25, 12, 14, 12, 757, DateTimeKind.Utc).AddTicks(7766));
+                        .HasDefaultValue(new DateTime(2026, 3, 25, 12, 0, 9, 117, DateTimeKind.Utc).AddTicks(2425));
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -169,7 +167,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 25, 12, 14, 12, 758, DateTimeKind.Utc).AddTicks(3513));
+                        .HasDefaultValue(new DateTime(2026, 3, 25, 12, 0, 9, 117, DateTimeKind.Utc).AddTicks(8941));
 
                     b.Property<string>("Email")
                         .IsRequired()

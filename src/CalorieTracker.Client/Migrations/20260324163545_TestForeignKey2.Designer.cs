@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Client.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260318103533_AddRoles")]
-    partial class AddRoles
+    [Migration("20260324163545_TestForeignKey2")]
+    partial class TestForeignKey2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,46 @@ namespace CalorieTracker.Client.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityLevels", (string)null);
+                });
+
+            modelBuilder.Entity("CalorieTracker.Client.Entities.DailyCalorieLimit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<short>("DailyLimit")
+                        .HasColumnType("smallint");
+
+                    b.Property<short>("RemainingLimit")
+                        .HasColumnType("SMALLINT");
+
+                    b.Property<short>("UsedLimit")
+                        .HasColumnType("SMALLINT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyCalorieLimits", (string)null);
+                });
+
+            modelBuilder.Entity("CalorieTracker.Client.Entities.DailyNutrientsIntakeAmount", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<short>("Carbs")
+                        .HasColumnType("SMALLINT");
+
+                    b.Property<short>("Fat")
+                        .HasColumnType("SMALLINT");
+
+                    b.Property<short>("Protein")
+                        .HasColumnType("SMALLINT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DailyNutrientsIntakeAmounts", (string)null);
                 });
 
             modelBuilder.Entity("CalorieTracker.Client.Entities.FitnessGoal", b =>
@@ -103,7 +143,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 18, 10, 35, 32, 966, DateTimeKind.Utc).AddTicks(4774));
+                        .HasDefaultValue(new DateTime(2026, 3, 24, 16, 35, 45, 315, DateTimeKind.Utc).AddTicks(667));
 
                     b.Property<string>("RoleName")
                         .IsRequired()
@@ -124,7 +164,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 18, 10, 35, 32, 966, DateTimeKind.Utc).AddTicks(6873));
+                        .HasDefaultValue(new DateTime(2026, 3, 24, 16, 35, 45, 315, DateTimeKind.Utc).AddTicks(7394));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -165,7 +205,6 @@ namespace CalorieTracker.Client.Migrations
             modelBuilder.Entity("CalorieTracker.Client.Entities.UserData", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ActivityLevel")
@@ -190,6 +229,17 @@ namespace CalorieTracker.Client.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserData", (string)null);
+                });
+
+            modelBuilder.Entity("CalorieTracker.Client.Entities.UserData", b =>
+                {
+                    b.HasOne("CalorieTracker.Client.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("CalorieTracker.Client.Entities.UserData", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
