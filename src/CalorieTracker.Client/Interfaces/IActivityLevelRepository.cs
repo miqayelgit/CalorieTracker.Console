@@ -1,6 +1,5 @@
-﻿namespace CalorieTracker.Client.Interfaces
+﻿namespace CalorieTracker.Client.Interfaces;
+
+public interface IActivityLevelRepository
 {
-    public interface IActivityLevelRepository
-    {
-    }
 }

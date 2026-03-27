@@ -16,14 +16,4 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
-    {
-        return await GetAllAsync();
-    }
-
-    public async Task<User> GetUserByUsername(string username)
-    {
-        return await GetAsync(x => x.UserName == username);
-    }
-
 }
