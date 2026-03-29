@@ -1,6 +1,4 @@
-﻿
-
-namespace CalorieTracker.Client.DTOs;
+﻿namespace CalorieTracker.Client.DTOs.UserDTOs;
 
 public class SignInDTO
 {

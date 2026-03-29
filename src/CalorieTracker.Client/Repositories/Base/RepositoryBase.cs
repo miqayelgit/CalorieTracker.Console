@@ -1,5 +1,6 @@
-﻿using CalorieTracker.Client.Interfaces;
+﻿using CalorieTracker.Client.Interfaces.Base;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.Linq.Expressions;
 
 namespace CalorieTracker.Client.Repositories.@base;
@@ -24,7 +25,7 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
         _context.Set<TEntity>().Remove(entity);
     }
 
-    public Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
     {
         return _context.Set<TEntity>().Where(predicate).FirstOrDefaultAsync()!;
     }
@@ -34,8 +35,15 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
         return await _context.Set<TEntity>().ToListAsync();
     }
 
+    public IQueryable<TEntity> GetAllData()
+    {
+        return _context.Set<TEntity>();
+    }
+
     public void Update(TEntity entity)
     {
         _context.Set<TEntity>().Update(entity);
     }
+
+  
 }

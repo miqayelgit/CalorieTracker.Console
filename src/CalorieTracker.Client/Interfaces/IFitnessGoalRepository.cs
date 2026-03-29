@@ -3,6 +3,6 @@ using CalorieTracker.Client.Interfaces.Base;
 
 namespace CalorieTracker.Client.Interfaces;
 
-public interface IActivityLevelRepository : IRepositoryBase<ActivityLevel>
+public interface IFitnessGoalRepository : IRepositoryBase<FitnessGoal>
 {
 }

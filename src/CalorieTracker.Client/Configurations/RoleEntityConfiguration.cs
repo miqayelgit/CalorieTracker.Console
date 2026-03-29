@@ -12,9 +12,11 @@ namespace CalorieTracker.Client.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.RoleName)
-                .HasMaxLength(20)
+            builder.Property(x => x.RoleType)
                 .IsRequired();
+
+            builder.HasAlternateKey(x => x.RoleType)
+                .HasName("UQ_Users_RoleType");
 
             builder.Property(x => x.CreatedDate)
                 .HasDefaultValue(DateTime.UtcNow);

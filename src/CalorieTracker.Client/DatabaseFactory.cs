@@ -11,7 +11,6 @@ public class DatabaseFactory : IDesignTimeDbContextFactory<DatabaseContext>
 
         optionsBuilder.UseSqlServer(
             "");
-
         return new DatabaseContext(optionsBuilder.Options);
     }
 }

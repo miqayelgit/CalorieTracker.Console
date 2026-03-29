@@ -12,33 +12,28 @@ namespace CalorieTracker.Client.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.User)
-               .WithMany()
-               .HasForeignKey(x => x.UserId);
-
             builder.Property(x => x.ProductName)
                 .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(x => x.ProteinPerHundredGram)
-                .HasColumnType("FLOAT")
                 .IsRequired();
 
             builder.Property(x => x.FatPerHundredGram)
-                .HasColumnType("FLOAT")
                 .IsRequired();
 
             builder.Property(x => x.CarbsPerHundredGram)
-                .HasColumnType("FLOAT")
                 .IsRequired();
 
             builder.Property(x => x.CaloriesPerHundredGram)
-                .HasColumnType("SMALLINT")
                 .IsRequired();
 
             builder.Property(x => x.VisibilityScope)
-                .HasColumnType("TINYINT")
                 .IsRequired();
+
+            builder.HasOne(x => x.User)
+                   .WithMany(u => u.Products)
+                   .HasForeignKey(x => x.UserId);
         }
     }
 }

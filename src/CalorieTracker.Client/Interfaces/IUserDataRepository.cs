@@ -5,7 +5,6 @@ using CalorieTracker.Client.Interfaces.Base;
 
 namespace CalorieTracker.Client.Interfaces;
 
-public interface IDailyCalorieLimitRepository: IRepositoryBase <DailyCalorieLimit>
+public interface IUserDataRepository : IRepositoryBase<UserData>
 {
-
 }

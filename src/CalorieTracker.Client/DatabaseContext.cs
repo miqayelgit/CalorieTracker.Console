@@ -23,7 +23,6 @@ public class DatabaseContext : DbContext
     public DbSet<DailyCalorieLimit> DailyCalorieLimits { get; set; }
     public DbSet<DailyNutrientsIntakeAmount> DailyNutrientsIntakeAmounts { get; set; }
 
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

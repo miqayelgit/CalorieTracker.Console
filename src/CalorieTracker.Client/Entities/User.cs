@@ -10,4 +10,9 @@ public class User
     public byte[] PasswordHash { get; set; } = [];
     public byte[] PasswordSalt { get; set; } = [];
     public DateTime CreatedAt { get; set; }
+    public ICollection<UserRole> UserRoles { get; set; } = [];
+    public ICollection<DailyCalorieLimit> DailyCalorieLimits { get; set; } = [];
+    public ICollection<DailyNutrientsIntakeAmount> DailyNutrientsIntakeAmounts { get; set; } = [];
+    public ICollection<Product> Products { get; set; } = [];
+    public UserData UserData { get; set; } = null!;
 }

@@ -10,14 +10,18 @@ namespace CalorieTracker.Client.Configurations
         {
             builder.ToTable("ActivityLevels");
 
-            builder.HasKey(x => x.Id);  
+            builder.HasKey(x => x.Id);
+
+            builder
+                .HasMany(a => a.UserDatas)
+                .WithOne(u => u.ActivityLevel)
+                .HasForeignKey(x => x.ActivityLevelId);
 
             builder.Property(x => x.ActivityLevelName)
                 .HasMaxLength(100)
                 .IsRequired();
 
             builder.Property(x => x.ActivityLevelRate)
-                .HasColumnType("FLOAT")
                 .IsRequired();
         }
     }

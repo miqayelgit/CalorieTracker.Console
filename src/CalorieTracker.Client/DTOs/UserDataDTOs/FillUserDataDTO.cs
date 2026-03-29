@@ -1,6 +1,8 @@
-﻿namespace CalorieTracker.Client.Entities;
+﻿
 
-public class UserData
+namespace CalorieTracker.Client.DTOs.UserDataDTOs;
+
+public class FillUserDataDTO
 {
     public Guid Id { get; set; }
     public Guid ActivityLevelId { get; set; }
@@ -8,7 +10,4 @@ public class UserData
     public short Height { get; set; }
     public short Weight { get; set; }
     public byte Age { get; set; }
-    public User User { get; set; } = null!;
-    public ActivityLevel ActivityLevel { get; set; } = null!;
-    public FitnessGoal FitnessGoal{ get; set; } = null!;
 }

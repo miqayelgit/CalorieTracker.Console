@@ -12,27 +12,24 @@ namespace CalorieTracker.Client.Configurations
 
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.User)
-                .WithOne()
+            builder.HasOne(ud => ud.User)
+                .WithOne(u => u.UserData)
                 .HasForeignKey<UserData>(x => x.Id);
 
             builder.Property(x => x.Height)
-                .HasColumnType("SMALLINT")
                 .IsRequired();
 
             builder.Property(x => x.Weight)
-                .HasColumnType("SMALLINT")
                 .IsRequired();
 
             builder.Property(x => x.Age)
-                .HasColumnType("TINYINT")
                 .IsRequired();
 
-            builder.Property(x => x.ActivityLevel)
+            builder.Property(x => x.ActivityLevelId)
                 .HasMaxLength(256)
                 .IsRequired();
 
-            builder.Property(x => x.FitnessGoal)
+            builder.Property(x => x.FitnessGoalId)
                 .HasMaxLength (256) 
                 .IsRequired();
         }
