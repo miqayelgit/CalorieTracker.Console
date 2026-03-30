@@ -79,7 +79,6 @@ if (nonAdminUser != null && levels != null && goal != null)
 ProductService ps = new ProductService(unitOfWork);
 CreateProductDTO createProductDTO = new CreateProductDTO
 {
-    Id = new Guid(),
     UserId = nonAdminUser!.Id,
     ProductName = "Chicken Breast",
     CaloriesPerHundredGram = 165,

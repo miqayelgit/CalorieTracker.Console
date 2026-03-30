@@ -4,7 +4,6 @@ namespace CalorieTracker.Client.DTOs.ProductDTOs
 {
     public class CreateProductDTO
     {
-        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public string ProductName { get; set; } = null!;
         public float ProteinPerHundredGram { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CalorieTracker.Client.Migrations
 {
     /// <inheritdoc />
-    public partial class FixedRefs : Migration
+    public partial class SetUp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,7 +30,9 @@ namespace CalorieTracker.Client.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     GoalName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    GoalValue = table.Column<float>(type: "real", nullable: false)
+                    ProteinPercent = table.Column<byte>(type: "tinyint", nullable: false),
+                    FatPercent = table.Column<byte>(type: "tinyint", nullable: false),
+                    CarbsPercent = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,12 +44,13 @@ namespace CalorieTracker.Client.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 28, 17, 49, 48, 23, DateTimeKind.Utc).AddTicks(4153))
+                    RoleType = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 30, 4, 17, 10, 211, DateTimeKind.Utc).AddTicks(9433))
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                    table.UniqueConstraint("UQ_Users_RoleType", x => x.RoleType);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,7 +64,7 @@ namespace CalorieTracker.Client.Migrations
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 28, 17, 49, 48, 24, DateTimeKind.Utc).AddTicks(1007))
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 30, 4, 17, 10, 212, DateTimeKind.Utc).AddTicks(5463))
                 },
                 constraints: table =>
                 {
@@ -78,7 +81,7 @@ namespace CalorieTracker.Client.Migrations
                     DailyLimit = table.Column<short>(type: "smallint", nullable: false),
                     UsedLimit = table.Column<short>(type: "smallint", nullable: false),
                     RemainingLimit = table.Column<short>(type: "smallint", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 28, 21, 49, 48, 22, DateTimeKind.Local).AddTicks(5254))
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2026, 3, 30, 8, 17, 10, 211, DateTimeKind.Local).AddTicks(1905))
                 },
                 constraints: table =>
                 {
@@ -157,8 +160,8 @@ namespace CalorieTracker.Client.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserData_FitnessGoals_ActivityLevelId",
-                        column: x => x.ActivityLevelId,
+                        name: "FK_UserData_FitnessGoals_FitnessGoalId",
+                        column: x => x.FitnessGoalId,
                         principalTable: "FitnessGoals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -213,6 +216,11 @@ namespace CalorieTracker.Client.Migrations
                 name: "IX_UserData_ActivityLevelId",
                 table: "UserData",
                 column: "ActivityLevelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserData_FitnessGoalId",
+                table: "UserData",
+                column: "FitnessGoalId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",

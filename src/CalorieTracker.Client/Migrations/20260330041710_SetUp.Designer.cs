@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CalorieTracker.Client.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20260329121634_MoveUserIdInProduct")]
-    partial class MoveUserIdInProduct
+    [Migration("20260330041710_SetUp")]
+    partial class SetUp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 16, 16, 33, 851, DateTimeKind.Local).AddTicks(9353));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 8, 17, 10, 211, DateTimeKind.Local).AddTicks(1905));
 
                     b.Property<short>("DailyLimit")
                         .HasColumnType("smallint");
@@ -169,7 +169,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 12, 16, 33, 852, DateTimeKind.Utc).AddTicks(6947));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 4, 17, 10, 211, DateTimeKind.Utc).AddTicks(9433));
 
                     b.Property<int>("RoleType")
                         .HasColumnType("int");
@@ -191,7 +191,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 12, 16, 33, 853, DateTimeKind.Utc).AddTicks(2689));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 4, 17, 10, 212, DateTimeKind.Utc).AddTicks(5463));
 
                     b.Property<string>("Email")
                         .IsRequired()

@@ -34,6 +34,9 @@ namespace CalorieTracker.Client.Configurations
             builder.HasOne(x => x.User)
                    .WithMany(u => u.Products)
                    .HasForeignKey(x => x.UserId);
+
+            builder.HasAlternateKey(x => x.ProductName)
+                .HasName("UQ_Products_ProductName");
         }
     }
 }

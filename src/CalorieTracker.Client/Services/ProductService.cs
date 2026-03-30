@@ -19,7 +19,6 @@ public class ProductService
     {
         Product product = new Product
         {
-            Id = createProductDTO.Id,
             UserId = createProductDTO.UserId,
             ProductName = createProductDTO.ProductName,
             CaloriesPerHundredGram = createProductDTO.CaloriesPerHundredGram,

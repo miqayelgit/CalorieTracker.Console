@@ -50,7 +50,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 16, 16, 33, 851, DateTimeKind.Local).AddTicks(9353));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 9, 2, 22, 356, DateTimeKind.Local).AddTicks(4136));
 
                     b.Property<short>("DailyLimit")
                         .HasColumnType("smallint");
@@ -152,6 +152,9 @@ namespace CalorieTracker.Client.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("ProductName")
+                        .HasName("UQ_Products_ProductName");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Products", (string)null);
@@ -166,7 +169,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 12, 16, 33, 852, DateTimeKind.Utc).AddTicks(6947));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 5, 2, 22, 357, DateTimeKind.Utc).AddTicks(1853));
 
                     b.Property<int>("RoleType")
                         .HasColumnType("int");
@@ -188,7 +191,7 @@ namespace CalorieTracker.Client.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2026, 3, 29, 12, 16, 33, 853, DateTimeKind.Utc).AddTicks(2689));
+                        .HasDefaultValue(new DateTime(2026, 3, 30, 5, 2, 22, 357, DateTimeKind.Utc).AddTicks(7226));
 
                     b.Property<string>("Email")
                         .IsRequired()
