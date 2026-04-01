@@ -21,6 +21,44 @@ namespace CalorieTracker.Client.Services
         {
             PasswordHashGenerator.CreateHash(signUpDTO.Password, out byte[] hash, out byte[] salt);
 
+            if (await _unitOfWork.UserRepository.IsUserAlreadyCreatedAsync(signUpDTO.Email))
+            {
+                Console.WriteLine("User already exists!!");
+                return;
+            }
+
+                User user = new User
+            {
+                FirstName = signUpDTO.FirstName,
+                LastName = signUpDTO.LastName,
+                UserName = signUpDTO.UserName,
+                Email = signUpDTO.Email,
+                PasswordHash = hash,
+                PasswordSalt = salt,
+                CreatedAt = DateTime.Now
+            };
+
+            _unitOfWork.UserRepository.Create(user);
+            await _unitOfWork.CommitAsync();
+        }
+
+        public async Task CreateAdmin(SignUpDTO signUpDTO)
+        {
+
+            if (await _unitOfWork.UserRepository.IsAdminUserPresentAsync())
+            {
+                Console.WriteLine("Admin user already created");
+                return;
+            }
+
+            PasswordHashGenerator.CreateHash(signUpDTO.Password, out byte[] hash, out byte[] salt);
+
+            if (await _unitOfWork.UserRepository.IsUserAlreadyCreatedAsync(signUpDTO.Email))
+            {
+                Console.WriteLine("User already exists!!");
+                return;
+            }
+
             User user = new User
             {
                 FirstName = signUpDTO.FirstName,
@@ -32,24 +70,7 @@ namespace CalorieTracker.Client.Services
                 CreatedAt = DateTime.Now
             };
 
-            Role role = await _unitOfWork.RoleRepository.FirstOrDefaultAsync(x => x.RoleType == signUpDTO.RoleType);
-
-            if (role == null)
-            {
-
-                role = new() { RoleType = signUpDTO.RoleType };
-                _unitOfWork.RoleRepository.Create(role);
-            }
-
-            UserRole userRole = new UserRole
-            {
-                User = user,
-                Role = role
-            };
-
-
             _unitOfWork.UserRepository.Create(user);
-            _unitOfWork.UserRolesRepository.Create(userRole);
             await _unitOfWork.CommitAsync();
         }
 
@@ -60,18 +81,16 @@ namespace CalorieTracker.Client.Services
             return PasswordHashGenerator.VerifyKey(signInDTO.Password, user.PasswordHash, user.PasswordSalt);
         }
 
-        public async Task<List<UserAdvancedDataDTO>> GetAllUsersAsync()
+        public async Task<List<UserAdvancedDataDTO>> GetAllUsersAdvancedAsync()
         {
-            IEnumerable<User> UsersList = await _unitOfWork.UserRepository.GetUserAdvancedDataAsync();
+            IEnumerable<User> usersList = await _unitOfWork.UserRepository.GetUserAdvancedDataAsync();
 
-            if (UsersList == null)
+            if (usersList == null)
             {
                 throw new InvalidOperationException();
             }
 
-            return UsersList
-                .Where(x => x.UserData != null)
-                .Select(x => new UserAdvancedDataDTO
+            return usersList.Select(x => new UserAdvancedDataDTO
             {
                 Id = x.Id,
                 Height = x.UserData.Height,

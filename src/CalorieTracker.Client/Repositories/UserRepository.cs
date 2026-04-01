@@ -2,6 +2,7 @@
 
 using CalorieTracker.Client.Contracts.Interfaces;
 using CalorieTracker.Client.Entities;
+using CalorieTracker.Client.Enums;
 using CalorieTracker.Client.Repositories.@base;
 using CalorieTracker.Client.UOW;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,8 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     }
     public async Task<IEnumerable<User>> GetUserAdvancedDataAsync()
     {
-        return await _context.Set<User>()     
+        return await _context.Users
+            //.Where(x => x.UserData != null)
             .Include(x => x.UserData)
                 .ThenInclude(x => x.FitnessGoal)
             .Include(x => x.UserData)
@@ -29,5 +31,19 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
             .Include(x => x.Products)
             .Include(x => x.DailyCalorieLimits)
             .Include(x => x.DailyNutrientsIntakeAmounts).ToListAsync();
+    }
+
+    public async Task<bool> IsAdminUserPresentAsync()
+    {
+        return await _context.Users
+            .Where(x => x.UserRoles.Any(x => x.Role.RoleType == RolesType.Admin))
+            .AnyAsync();
+    }
+
+    public async Task<bool> IsUserAlreadyCreatedAsync(string email)
+    {
+        return await _context.Users
+            .Where(x => x.Email == email)
+            .AnyAsync();
     }
 }

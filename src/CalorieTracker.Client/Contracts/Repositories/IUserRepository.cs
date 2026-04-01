@@ -6,4 +6,6 @@ namespace CalorieTracker.Client.Contracts.Interfaces;
 public interface IUserRepository : IRepositoryBase<User>
 {
     public Task<IEnumerable<User>> GetUserAdvancedDataAsync();
+    public Task<bool> IsAdminUserPresentAsync();
+    public Task<bool> IsUserAlreadyCreatedAsync(string email);
 }

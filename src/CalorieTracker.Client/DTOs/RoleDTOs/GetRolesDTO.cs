@@ -5,7 +5,7 @@ namespace CalorieTracker.Client.DTOs.RoleDTOs
 {
     public class GetRolesDTO
     {
-        public RolesTypes RoleType { get; set; }
+        public RolesType RoleType { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

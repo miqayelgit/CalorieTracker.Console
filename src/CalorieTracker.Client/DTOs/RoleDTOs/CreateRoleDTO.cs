@@ -6,6 +6,6 @@ namespace CalorieTracker.Client.DTOs.RoleDTOs;
 
 public class CreateRoleDTO
 {
-    public required RolesTypes RoleType { get; set; }
+    public required RolesType RoleType { get; set; }
 
 }

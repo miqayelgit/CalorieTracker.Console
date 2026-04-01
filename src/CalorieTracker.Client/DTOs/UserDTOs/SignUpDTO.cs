@@ -10,5 +10,5 @@ public class SignUpDTO
     public required string UserName { get; set; }
     public required string Email { get; set; }
     public required string Password { get; set; }
-    public required RolesTypes RoleType { get; set; }
+    public required RolesType RoleType { get; set; }
 }

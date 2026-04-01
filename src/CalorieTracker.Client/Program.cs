@@ -10,31 +10,31 @@ using CalorieTracker.Client.UOW;
 using System.Data;
 
 
-DatabaseContext context = new DatabaseFactory().CreateDbContext([]);
-UnitOfWork unitOfWork = new UnitOfWork(context);
-RoleService roleService = new RoleService(unitOfWork);
-UserService userService = new UserService(unitOfWork);
+var context = new DatabaseFactory().CreateDbContext([]);
+var unitOfWork = new UnitOfWork(context);
+var roleService = new RoleService(unitOfWork);
+var userService = new UserService(unitOfWork);
 
 
 
-List<UserAdvancedDataDTO> users = await userService.GetAllUsersAsync();
+
+
+
+List<UserAdvancedDataDTO> users = await userService.GetAllUsersAdvancedAsync();
 List<GetRolesDTO> roles = await roleService.GetRolesAsync();
 
-//if(!users.Any(x => x.UserRoles.Select(x => x.Role.RoleType == RolesTypes.Admin).FirstOrDefault()))
-//{ 
-//    SignUpDTO signUpDTO = new SignUpDTO
-//        {
-//            FirstName = "Admin",
-//            LastName = "Adminyan",
-//            UserName = "MainAdmin",
-//            Email = "Admin@gmail.com",
-//            Password = "Password",
-//            RoleType = RolesTypes.Admin
-//        };
 
-//    await userService.SignUp(signUpDTO);
-    
-//}
+SignUpDTO signUpDTO = new SignUpDTO
+    {
+        FirstName = "Admin",
+        LastName = "Adminyan",
+        UserName = "MainAdmin",
+        Email = "Admin@gmail.com",
+        Password = "Password",
+        RoleType = RolesType.Admin
+    };
+
+await userService.CreateAdmin(signUpDTO);
 
 //if(!users.Any(x => x.UserRoles.Any(x => x.Role.RoleType != RolesTypes.Admin)))
 //{
