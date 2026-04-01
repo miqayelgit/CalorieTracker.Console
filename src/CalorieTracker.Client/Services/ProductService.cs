@@ -1,12 +1,11 @@
-﻿using CalorieTracker.Client.DTOs.ProductDTOs;
+﻿using CalorieTracker.Client.Contracts.Services;
+using CalorieTracker.Client.DTOs.ProductDTOs;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.UOW;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace CalorieTracker.Client.Services;
 
-public class ProductService
+public class ProductService : IProductService
 {
     private readonly UnitOfWork _unitOfWork;
 
@@ -35,8 +34,6 @@ public class ProductService
 
     public async Task<IEnumerable<Product>> GetProducts()
     {
-        return await _unitOfWork.ProductRepository.GetAllData()
-            .Include(x => x.User)
-            .ToListAsync();
+        return await _unitOfWork.ProductRepository.GetAllAsync();
     }
 }

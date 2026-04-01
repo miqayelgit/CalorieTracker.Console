@@ -1,4 +1,5 @@
 ﻿
+using CalorieTracker.Client.Contracts.Services;
 using CalorieTracker.Client.DTOs.RoleDTOs;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.UOW;
@@ -6,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTracker.Client.Services;
 
-public class RoleService
+public class RoleService : IRoleService
 {
     private readonly UnitOfWork _unitOfWork;
 
@@ -27,16 +28,10 @@ public class RoleService
         await _unitOfWork.CommitAsync();  
     }
 
-    public async Task<IEnumerable<Role>> GetRolesAsync()
+    public async Task<List<GetRolesDTO>> GetRolesAsync()
     {
-        return await _unitOfWork.RoleRepository.GetAllAsync();
-    }
-    public async Task<IEnumerable<Role>> GetRolesAllData()
-    {
-        return await _unitOfWork.RoleRepository.GetAllData()
-            .Include(x => x.UserRoles)
-                .ThenInclude(x => x.User)
-            .ToListAsync();
-    }
+        IEnumerable<Role> roles = await _unitOfWork.RoleRepository.GetAllAsync();
 
+        return roles.Select(x => new GetRolesDTO { RoleType = x.RoleType, CreatedDate = x.CreatedDate }).ToList();
+    }
 }

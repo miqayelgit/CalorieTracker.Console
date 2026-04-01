@@ -1,10 +1,11 @@
 ﻿
+using CalorieTracker.Client.Contracts.Services;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.UOW;
 
 namespace CalorieTracker.Client.Services;
 
-public class ActivityLevelService
+public class ActivityLevelService : IActivityLevelService
 {
     private readonly UnitOfWork _unitOfWork;
 

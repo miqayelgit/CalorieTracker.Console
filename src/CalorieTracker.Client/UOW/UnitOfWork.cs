@@ -1,11 +1,11 @@
 ﻿
 
-using CalorieTracker.Client.Interfaces;
+using CalorieTracker.Client.Contracts.Interfaces;
 using CalorieTracker.Client.Repositories;
 
 namespace CalorieTracker.Client.UOW;
 
- public class UnitOfWork (DatabaseContext context)
+public class UnitOfWork (DatabaseContext context)
 {
 
     private readonly DatabaseContext _context = context;

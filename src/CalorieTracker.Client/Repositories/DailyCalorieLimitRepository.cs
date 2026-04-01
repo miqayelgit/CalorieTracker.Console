@@ -1,8 +1,8 @@
 ﻿
 
 using CalorieTracker.Client.Configurations;
+using CalorieTracker.Client.Contracts.Interfaces;
 using CalorieTracker.Client.Entities;
-using CalorieTracker.Client.Interfaces;
 using CalorieTracker.Client.Repositories.@base;
 
 namespace CalorieTracker.Client.Repositories;

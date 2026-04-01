@@ -1,12 +1,11 @@
-﻿
-
+﻿using CalorieTracker.Client.Contracts.Services;
 using CalorieTracker.Client.DTOs.UserDataDTOs;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.UOW;
 
 namespace CalorieTracker.Client.Services;
 
-public class UserDataService
+public class UserDataService : IUserDataService
 {
     private readonly UnitOfWork _unitOfWork;
 

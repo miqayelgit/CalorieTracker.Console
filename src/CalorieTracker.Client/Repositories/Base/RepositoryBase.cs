@@ -1,4 +1,4 @@
-﻿using CalorieTracker.Client.Interfaces.Base;
+﻿using CalorieTracker.Client.Contracts.Interfaces.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.Linq.Expressions;
@@ -8,7 +8,7 @@ namespace CalorieTracker.Client.Repositories.@base;
 public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
 {
 
-    private DatabaseContext _context;
+    protected DatabaseContext _context;
 
     public RepositoryBase(DatabaseContext context)
     {
@@ -25,19 +25,23 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where T
         _context.Set<TEntity>().Remove(entity);
     }
 
-    public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+    public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>>? predicate = null)
     {
+        if(predicate == null)
+        {
+            return _context.Set<TEntity>().FirstOrDefaultAsync()!;
+        }
+
         return _context.Set<TEntity>().Where(predicate).FirstOrDefaultAsync()!;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync()
+    public async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>>? predicate = null)
     {
-        return await _context.Set<TEntity>().ToListAsync();
-    }
-
-    public IQueryable<TEntity> GetAllData()
-    {
-        return _context.Set<TEntity>();
+        if(predicate == null)
+        {
+           return await _context.Set<TEntity>().ToListAsync();
+        }
+        return await _context.Set<TEntity>().Where(predicate).ToListAsync();
     }
 
     public void Update(TEntity entity)

@@ -1,11 +1,12 @@
 ﻿
 
+using CalorieTracker.Client.Contracts.Services;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.UOW;
 
 namespace CalorieTracker.Client.Services;
 
-internal class FitnessGoalService
+internal class FitnessGoalService : IFitnessGoalService
 {
     private readonly UnitOfWork _unitOfWork;
 

@@ -1,4 +1,5 @@
-﻿using CalorieTracker.Client.DTOs.RoleDTOs;
+﻿using CalorieTracker.Client.Contracts.Services;
+using CalorieTracker.Client.DTOs.RoleDTOs;
 using CalorieTracker.Client.DTOs.UserDTOs;
 using CalorieTracker.Client.Entities;
 using CalorieTracker.Client.Enums;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CalorieTracker.Client.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly UnitOfWork _unitOfWork;
         public UserService(UnitOfWork unitOfWork)
@@ -59,23 +60,45 @@ namespace CalorieTracker.Client.Services
             return PasswordHashGenerator.VerifyKey(signInDTO.Password, user.PasswordHash, user.PasswordSalt);
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<List<UserAdvancedDataDTO>> GetAllUsersAsync()
         {
-            return await _unitOfWork.UserRepository.GetAllAsync();
+            IEnumerable<User> UsersList = await _unitOfWork.UserRepository.GetUserAdvancedDataAsync();
+
+            if (UsersList == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return UsersList
+                .Where(x => x.UserData != null)
+                .Select(x => new UserAdvancedDataDTO
+            {
+                Id = x.Id,
+                Height = x.UserData.Height,
+                Weight = x.UserData.Weight,
+                ActivityLevelName = x.UserData.ActivityLevel.ActivityLevelName,
+                FitnessGoalName = x.UserData.FitnessGoal.GoalName,
+                Age = x.UserData.Age,   
+                DailyCalorieLimits = x.DailyCalorieLimits.ToList(),
+                DailyNutrientsIntakeAmounts = x.DailyNutrientsIntakeAmounts.ToList(),
+                UserRoles = x.UserRoles.ToList(),
+
+            }).ToList();
         }
 
-        public async Task<IEnumerable<User>> GetUserAllData()
+        public async Task<UserProfileDTO> GetUserProfileByIdAsync(Guid id)
         {
-            return  await _unitOfWork.UserRepository.GetAllData()
-                .Include(x => x.UserData)
-                    .ThenInclude(x => x.FitnessGoal)
-                .Include(x => x.UserData)
-                    .ThenInclude(x => x.ActivityLevel)
-                .Include(x => x.UserRoles)
-                    .ThenInclude(x => x.Role)
-                .Include(x => x.Products)
-                .Include(x => x.DailyCalorieLimits)
-                .Include(x => x.DailyNutrientsIntakeAmounts).ToListAsync();
+            User user = await _unitOfWork.UserRepository.FirstOrDefaultAsync(x => x.Id == id);
+
+            UserProfileDTO userProfile = new UserProfileDTO
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email
+            };
+
+            return userProfile;
         }
 
     }
